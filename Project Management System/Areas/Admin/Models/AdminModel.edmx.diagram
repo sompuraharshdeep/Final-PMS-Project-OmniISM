@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd51a47cf4e9451384f95a7522457e40" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.tbl_Designation" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_ManageProjects" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_TaskSummary" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tbl_TimeSheet" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__tbl_TimeS__FKpro__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tbl_TaskS__FKtim__440B1D61" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.tbl_SuperAdminLogin" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.tbl_ManageTask" Width="1.5" PointX="6" PointY="2" />
+        <AssociationConnector Association="Model.FK__tbl_Manag__FKdes__5070F446" />
+        <AssociationConnector Association="Model.FK__tbl_Manag__FKpro__3C69FB99" />
+        <AssociationConnector Association="Model.FK__tbl_TimeS__FKtas__403A8C7D" />
+        <EntityTypeShape EntityType="Model.tbl_ManageUsers" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="Model.FK__tbl_Manag__FKdes__534D60F1" />
+        <AssociationConnector Association="Model.FK__tbl_Manag__FKuse__5441852A" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

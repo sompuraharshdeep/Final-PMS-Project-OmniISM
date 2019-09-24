@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Project_Management_System.Areas.Admin.Models.tbl_ManageProjects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.projectname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.enddate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.documentupload)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estimatedhours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.actualhours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.projectstatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activitystatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdby)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createddate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedby)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifieddate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.projectname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.enddate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.documentupload)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estimatedhours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.actualhours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projectstatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activitystatus)
+            @{
+                if (item.activitystatus == true)
+                {
+                    <h5>Active</h5>
+                }
+                else
+                {
+                    <h5>InActive</h5>
+                }
+
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdby)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createddate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedby)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifieddate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.projectid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.projectid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.projectid })|
+            @Html.ActionLink("ViewTask","ViewTasks", "TaskSummary", new { id = item.projectid },null)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Designation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departmentname" Type="varchar" MaxLength="50" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_ManageProjects">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectname" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="startdate" Type="date" />
+          <Property Name="enddate" Type="date" />
+          <Property Name="documentupload" Type="varchar(max)" />
+          <Property Name="estimatedhours" Type="int" />
+          <Property Name="actualhours" Type="int" />
+          <Property Name="projectstatus" Type="varchar" MaxLength="50" />
+          <Property Name="activitystatus" Type="bit" />
+          <Property Name="createdby" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="modifiedby" Type="varchar" MaxLength="50" />
+          <Property Name="modifieddate" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_ManageTask">
+          <Key>
+            <PropertyRef Name="taskid" />
+          </Key>
+          <Property Name="taskid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taskname" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="startdate" Type="date" />
+          <Property Name="enddate" Type="date" />
+          <Property Name="estimatedhours" Type="int" />
+          <Property Name="taskstatus" Type="varchar" MaxLength="50" />
+          <Property Name="createdby" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="modifiedby" Type="varchar" MaxLength="50" />
+          <Property Name="modifieddate" Type="date" />
+          <Property Name="FKuserid" Type="int" />
+          <Property Name="FKprojectid" Type="int" />
+          <Property Name="FKdesignationid" Type="int" />
+          <Property Name="TaskCount" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_ManageUsers">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="role" Type="varchar" MaxLength="20" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+          <Property Name="emailid" Type="varchar" MaxLength="50" />
+          <Property Name="activitystatus" Type="varchar" MaxLength="20" />
+          <Property Name="createdby" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="modifiedby" Type="varchar" MaxLength="50" />
+          <Property Name="modifieddate" Type="date" />
+          <Property Name="FKdesignationid" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_SuperAdminLogin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="useremail" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="ResetPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_TaskSummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FKtimesheetid" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_TimeSheet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FKprojectid" Type="int" />
+          <Property Name="FKtaskid" Type="int" />
+          <Property Name="FKuserid" Type="int" />
+          <Property Name="startdate" Type="date" />
+          <Property Name="enddate" Type="date" />
+          <Property Name="actualhours" Type="int" />
+          <Property Name="comments" Type="varchar(max)" />
+          <Property Name="createdby" Type="varchar" MaxLength="50" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="modifiedby" Type="varchar" MaxLength="50" />
+          <Property Name="modifieddate" Type="date" />
+        </EntityType>
+        <Association Name="FK__tbl_Manag__FKdes__5070F446">
+          <End Role="tbl_Designation" Type="Self.tbl_Designation" Multiplicity="0..1" />
+          <End Role="tbl_ManageTask" Type="Self.tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Designation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKdesignationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Manag__FKdes__534D60F1">
+          <End Role="tbl_Designation" Type="Self.tbl_Designation" Multiplicity="0..1" />
+          <End Role="tbl_ManageUsers" Type="Self.tbl_ManageUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Designation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_ManageUsers">
+              <PropertyRef Name="FKdesignationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Manag__FKpro__3C69FB99">
+          <End Role="tbl_ManageProjects" Type="Self.tbl_ManageProjects" Multiplicity="0..1" />
+          <End Role="tbl_ManageTask" Type="Self.tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageProjects">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKprojectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Manag__FKuse__5441852A">
+          <End Role="tbl_ManageUsers" Type="Self.tbl_ManageUsers" Multiplicity="0..1" />
+          <End Role="tbl_ManageTask" Type="Self.tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageUsers">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_TaskS__FKtim__440B1D61">
+          <End Role="tbl_TimeSheet" Type="Self.tbl_TimeSheet" Multiplicity="0..1" />
+          <End Role="tbl_TaskSummary" Type="Self.tbl_TaskSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TimeSheet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_TaskSummary">
+              <PropertyRef Name="FKtimesheetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_TimeS__FKpro__3F466844">
+          <End Role="tbl_ManageProjects" Type="Self.tbl_ManageProjects" Multiplicity="0..1" />
+          <End Role="tbl_TimeSheet" Type="Self.tbl_TimeSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageProjects">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="tbl_TimeSheet">
+              <PropertyRef Name="FKprojectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_TimeS__FKtas__403A8C7D">
+          <End Role="tbl_ManageTask" Type="Self.tbl_ManageTask" Multiplicity="0..1" />
+          <End Role="tbl_TimeSheet" Type="Self.tbl_TimeSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageTask">
+              <PropertyRef Name="taskid" />
+            </Principal>
+            <Dependent Role="tbl_TimeSheet">
+              <PropertyRef Name="FKtaskid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ManageProjects" EntityType="Self.tbl_ManageProjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ManageTask" EntityType="Self.tbl_ManageTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ManageUsers" EntityType="Self.tbl_ManageUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SuperAdminLogin" EntityType="Self.tbl_SuperAdminLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TaskSummary" EntityType="Self.tbl_TaskSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_TimeSheet" EntityType="Self.tbl_TimeSheet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Manag__FKdes__5070F446" Association="Self.FK__tbl_Manag__FKdes__5070F446">
+            <End Role="tbl_Designation" EntitySet="tbl_Designation" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Manag__FKdes__534D60F1" Association="Self.FK__tbl_Manag__FKdes__534D60F1">
+            <End Role="tbl_Designation" EntitySet="tbl_Designation" />
+            <End Role="tbl_ManageUsers" EntitySet="tbl_ManageUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Manag__FKpro__3C69FB99" Association="Self.FK__tbl_Manag__FKpro__3C69FB99">
+            <End Role="tbl_ManageProjects" EntitySet="tbl_ManageProjects" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Manag__FKuse__5441852A" Association="Self.FK__tbl_Manag__FKuse__5441852A">
+            <End Role="tbl_ManageUsers" EntitySet="tbl_ManageUsers" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_TaskS__FKtim__440B1D61" Association="Self.FK__tbl_TaskS__FKtim__440B1D61">
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+            <End Role="tbl_TaskSummary" EntitySet="tbl_TaskSummary" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_TimeS__FKpro__3F466844" Association="Self.FK__tbl_TimeS__FKpro__3F466844">
+            <End Role="tbl_ManageProjects" EntitySet="tbl_ManageProjects" />
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_TimeS__FKtas__403A8C7D" Association="Self.FK__tbl_TimeS__FKtas__403A8C7D">
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Designation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departmentname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_ManageTask" Relationship="Model.FK__tbl_Manag__FKdes__5070F446" FromRole="tbl_Designation" ToRole="tbl_ManageTask" />
+          <NavigationProperty Name="tbl_ManageUsers" Relationship="Model.FK__tbl_Manag__FKdes__534D60F1" FromRole="tbl_Designation" ToRole="tbl_ManageUsers" />
+        </EntityType>
+        <EntityType Name="tbl_ManageProjects">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="documentupload" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="estimatedhours" Type="Int32" />
+          <Property Name="actualhours" Type="Int32" />
+          <Property Name="projectstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activitystatus" Type="Boolean" />
+          <Property Name="createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="modifiedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modifieddate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_TimeSheet" Relationship="Self.FK__tbl_TimeS__FKpro__3F466844" FromRole="tbl_ManageProjects" ToRole="tbl_TimeSheet" />
+          <NavigationProperty Name="tbl_ManageTask" Relationship="Model.FK__tbl_Manag__FKpro__3C69FB99" FromRole="tbl_ManageProjects" ToRole="tbl_ManageTask" />
+        </EntityType>
+        <EntityType Name="tbl_TaskSummary">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FKtimesheetid" Type="Int32" />
+          <NavigationProperty Name="tbl_TimeSheet" Relationship="Self.FK__tbl_TaskS__FKtim__440B1D61" FromRole="tbl_TaskSummary" ToRole="tbl_TimeSheet" />
+        </EntityType>
+        <EntityType Name="tbl_TimeSheet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FKprojectid" Type="Int32" />
+          <Property Name="FKtaskid" Type="Int32" />
+          <Property Name="FKuserid" Type="Int32" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="actualhours" Type="Int32" />
+          <Property Name="comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="modifiedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modifieddate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_ManageProjects" Relationship="Self.FK__tbl_TimeS__FKpro__3F466844" FromRole="tbl_TimeSheet" ToRole="tbl_ManageProjects" />
+          <NavigationProperty Name="tbl_TaskSummary" Relationship="Self.FK__tbl_TaskS__FKtim__440B1D61" FromRole="tbl_TimeSheet" ToRole="tbl_TaskSummary" />
+          <NavigationProperty Name="tbl_ManageTask" Relationship="Model.FK__tbl_TimeS__FKtas__403A8C7D" FromRole="tbl_TimeSheet" ToRole="tbl_ManageTask" />
+        </EntityType>
+        <Association Name="FK__tbl_TimeS__FKpro__3F466844">
+          <End Role="tbl_ManageProjects" Type="Self.tbl_ManageProjects" Multiplicity="0..1" />
+          <End Role="tbl_TimeSheet" Type="Self.tbl_TimeSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageProjects">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="tbl_TimeSheet">
+              <PropertyRef Name="FKprojectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_TaskS__FKtim__440B1D61">
+          <End Role="tbl_TimeSheet" Type="Self.tbl_TimeSheet" Multiplicity="0..1" />
+          <End Role="tbl_TaskSummary" Type="Self.tbl_TaskSummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_TimeSheet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_TaskSummary">
+              <PropertyRef Name="FKtimesheetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PMSEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Designation" EntityType="Self.tbl_Designation" />
+          <EntitySet Name="tbl_ManageProjects" EntityType="Self.tbl_ManageProjects" />
+          <EntitySet Name="tbl_TaskSummary" EntityType="Self.tbl_TaskSummary" />
+          <EntitySet Name="tbl_TimeSheet" EntityType="Self.tbl_TimeSheet" />
+          <AssociationSet Name="FK__tbl_TimeS__FKpro__3F466844" Association="Self.FK__tbl_TimeS__FKpro__3F466844">
+            <End Role="tbl_ManageProjects" EntitySet="tbl_ManageProjects" />
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_TaskS__FKtim__440B1D61" Association="Self.FK__tbl_TaskS__FKtim__440B1D61">
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+            <End Role="tbl_TaskSummary" EntitySet="tbl_TaskSummary" />
+          </AssociationSet>
+          <EntitySet Name="tbl_SuperAdminLogin" EntityType="Model.tbl_SuperAdminLogin" />
+          <EntitySet Name="tbl_ManageTask" EntityType="Model.tbl_ManageTask" />
+          <AssociationSet Name="FK__tbl_Manag__FKdes__5070F446" Association="Model.FK__tbl_Manag__FKdes__5070F446">
+            <End Role="tbl_Designation" EntitySet="tbl_Designation" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Manag__FKpro__3C69FB99" Association="Model.FK__tbl_Manag__FKpro__3C69FB99">
+            <End Role="tbl_ManageProjects" EntitySet="tbl_ManageProjects" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_TimeS__FKtas__403A8C7D" Association="Model.FK__tbl_TimeS__FKtas__403A8C7D">
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+            <End Role="tbl_TimeSheet" EntitySet="tbl_TimeSheet" />
+          </AssociationSet>
+          <EntitySet Name="tbl_ManageUsers" EntityType="Model.tbl_ManageUsers" />
+          <AssociationSet Name="FK__tbl_Manag__FKdes__534D60F1" Association="Model.FK__tbl_Manag__FKdes__534D60F1">
+            <End Role="tbl_Designation" EntitySet="tbl_Designation" />
+            <End Role="tbl_ManageUsers" EntitySet="tbl_ManageUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Manag__FKuse__5441852A" Association="Model.FK__tbl_Manag__FKuse__5441852A">
+            <End Role="tbl_ManageUsers" EntitySet="tbl_ManageUsers" />
+            <End Role="tbl_ManageTask" EntitySet="tbl_ManageTask" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_SuperAdminLogin">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="useremail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ResetPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_ManageTask">
+          <Key>
+            <PropertyRef Name="taskid" />
+          </Key>
+          <Property Name="taskid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taskname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="estimatedhours" Type="Int32" />
+          <Property Name="taskstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="modifiedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modifieddate" Type="DateTime" Precision="0" />
+          <Property Name="FKuserid" Type="Int32" />
+          <Property Name="FKprojectid" Type="Int32" />
+          <Property Name="FKdesignationid" Type="Int32" />
+          <Property Name="TaskCount" Type="Int32" />
+          <NavigationProperty Name="tbl_Designation" Relationship="Model.FK__tbl_Manag__FKdes__5070F446" FromRole="tbl_ManageTask" ToRole="tbl_Designation" />
+          <NavigationProperty Name="tbl_ManageProjects" Relationship="Model.FK__tbl_Manag__FKpro__3C69FB99" FromRole="tbl_ManageTask" ToRole="tbl_ManageProjects" />
+          <NavigationProperty Name="tbl_TimeSheet" Relationship="Model.FK__tbl_TimeS__FKtas__403A8C7D" FromRole="tbl_ManageTask" ToRole="tbl_TimeSheet" />
+          <NavigationProperty Name="tbl_ManageUsers" Relationship="Model.FK__tbl_Manag__FKuse__5441852A" FromRole="tbl_ManageTask" ToRole="tbl_ManageUsers" />
+        </EntityType>
+        <Association Name="FK__tbl_Manag__FKdes__5070F446">
+          <End Type="Model.tbl_Designation" Role="tbl_Designation" Multiplicity="0..1" />
+          <End Type="Model.tbl_ManageTask" Role="tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Designation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKdesignationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Manag__FKpro__3C69FB99">
+          <End Type="Model.tbl_ManageProjects" Role="tbl_ManageProjects" Multiplicity="0..1" />
+          <End Type="Model.tbl_ManageTask" Role="tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageProjects">
+              <PropertyRef Name="projectid" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKprojectid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_TimeS__FKtas__403A8C7D">
+          <End Type="Model.tbl_ManageTask" Role="tbl_ManageTask" Multiplicity="0..1" />
+          <End Type="Model.tbl_TimeSheet" Role="tbl_TimeSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageTask">
+              <PropertyRef Name="taskid" />
+            </Principal>
+            <Dependent Role="tbl_TimeSheet">
+              <PropertyRef Name="FKtaskid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_ManageUsers">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activitystatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="modifiedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modifieddate" Type="DateTime" Precision="0" />
+          <Property Name="FKdesignationid" Type="Int32" />
+          <NavigationProperty Name="tbl_Designation" Relationship="Model.FK__tbl_Manag__FKdes__534D60F1" FromRole="tbl_ManageUsers" ToRole="tbl_Designation" />
+          <NavigationProperty Name="tbl_ManageTask" Relationship="Model.FK__tbl_Manag__FKuse__5441852A" FromRole="tbl_ManageUsers" ToRole="tbl_ManageTask" />
+        </EntityType>
+        <Association Name="FK__tbl_Manag__FKdes__534D60F1">
+          <End Type="Model.tbl_Designation" Role="tbl_Designation" Multiplicity="0..1" />
+          <End Type="Model.tbl_ManageUsers" Role="tbl_ManageUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Designation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_ManageUsers">
+              <PropertyRef Name="FKdesignationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Manag__FKuse__5441852A">
+          <End Type="Model.tbl_ManageUsers" Role="tbl_ManageUsers" Multiplicity="0..1" />
+          <End Type="Model.tbl_ManageTask" Role="tbl_ManageTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ManageUsers">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tbl_ManageTask">
+              <PropertyRef Name="FKuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="PMSEntities1">
+          <EntitySetMapping Name="tbl_Designation">
+            <EntityTypeMapping TypeName="Model.tbl_Designation">
+              <MappingFragment StoreEntitySet="tbl_Designation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="departmentname" ColumnName="departmentname" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ManageProjects">
+            <EntityTypeMapping TypeName="Model.tbl_ManageProjects">
+              <MappingFragment StoreEntitySet="tbl_ManageProjects">
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="projectname" ColumnName="projectname" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="documentupload" ColumnName="documentupload" />
+                <ScalarProperty Name="estimatedhours" ColumnName="estimatedhours" />
+                <ScalarProperty Name="actualhours" ColumnName="actualhours" />
+                <ScalarProperty Name="projectstatus" ColumnName="projectstatus" />
+                <ScalarProperty Name="activitystatus" ColumnName="activitystatus" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="modifiedby" ColumnName="modifiedby" />
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TaskSummary">
+            <EntityTypeMapping TypeName="Model.tbl_TaskSummary">
+              <MappingFragment StoreEntitySet="tbl_TaskSummary">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FKtimesheetid" ColumnName="FKtimesheetid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TimeSheet">
+            <EntityTypeMapping TypeName="Model.tbl_TimeSheet">
+              <MappingFragment StoreEntitySet="tbl_TimeSheet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FKprojectid" ColumnName="FKprojectid" />
+                <ScalarProperty Name="FKtaskid" ColumnName="FKtaskid" />
+                <ScalarProperty Name="FKuserid" ColumnName="FKuserid" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="actualhours" ColumnName="actualhours" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="modifiedby" ColumnName="modifiedby" />
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SuperAdminLogin">
+            <EntityTypeMapping TypeName="Model.tbl_SuperAdminLogin">
+              <MappingFragment StoreEntitySet="tbl_SuperAdminLogin">
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="useremail" ColumnName="useremail" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ManageTask">
+            <EntityTypeMapping TypeName="Model.tbl_ManageTask">
+              <MappingFragment StoreEntitySet="tbl_ManageTask">
+                <ScalarProperty Name="TaskCount" ColumnName="TaskCount" />
+                <ScalarProperty Name="FKdesignationid" ColumnName="FKdesignationid" />
+                <ScalarProperty Name="FKprojectid" ColumnName="FKprojectid" />
+                <ScalarProperty Name="FKuserid" ColumnName="FKuserid" />
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
+                <ScalarProperty Name="modifiedby" ColumnName="modifiedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="taskstatus" ColumnName="taskstatus" />
+                <ScalarProperty Name="estimatedhours" ColumnName="estimatedhours" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="taskname" ColumnName="taskname" />
+                <ScalarProperty Name="taskid" ColumnName="taskid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ManageUsers">
+            <EntityTypeMapping TypeName="Model.tbl_ManageUsers">
+              <MappingFragment StoreEntitySet="tbl_ManageUsers">
+                <ScalarProperty Name="FKdesignationid" ColumnName="FKdesignationid" />
+                <ScalarProperty Name="modifieddate" ColumnName="modifieddate" />
+                <ScalarProperty Name="modifiedby" ColumnName="modifiedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="activitystatus" ColumnName="activitystatus" />
+                <ScalarProperty Name="emailid" ColumnName="emailid" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
